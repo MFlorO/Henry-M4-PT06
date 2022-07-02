@@ -1,7 +1,37 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Sequelize } = require('sequelize');
 
 module.exports = sequelize => {
   sequelize.define('Character', {
+    code: {
+      type: DataTypes.STRING(5),
+      primaryKey: true
+    },
+    name: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false
+    },
+    age: {
+      type: DataTypes.INTEGER
+    },
+    race: {
+      type: DataTypes.ENUM('Human', 'Elf', 'Machine', 'Demon', 'Animal', 'Other'),
+      defaultValue: 'Other'
+    },
+    hp: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    },
+    mana: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    },
+    date_added: {
+      type:  DataTypes.DATEONLY,   //QUE DIFERENCIA HAY ENTRE DATA Y DATAONLY???
+      defaultValue: DataTypes.NOW
 
+    }
+  },{
+    timestamps: false
   })
-}
+} 
