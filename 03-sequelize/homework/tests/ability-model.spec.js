@@ -50,7 +50,7 @@ describe('Ability Model', () => {
     });
   })
 
-  xdescribe('Parte DOS', () => {
+  describe('Parte DOS', () => {
     it('should retrieve the summary although it is not saved in the database', async () => {
       const ability = await Ability.create({
         name: 'Thunderbolt',

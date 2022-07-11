@@ -4,12 +4,22 @@ module.exports = sequelize => {
   sequelize.define('Character', { 
     code: {
       type: DataTypes.STRING(5),
-      primaryKey: true
+      primaryKey: true,
+      validate:{
+        isNotHenry(value){
+          if(value.toLowerCase() === "henry"){
+            throw new Error("Ani combination of HENRY characters is not allowed")
+          }
+        }
+      }
     },
     name: {
       type: DataTypes.STRING,
       unique: true,
-      allowNull: false
+      allowNull: false,
+      validate:{
+        notIn:[["Henry","Soy Henry","SoyHenry"]]
+      }
     },
     age: {
       type: DataTypes.INTEGER

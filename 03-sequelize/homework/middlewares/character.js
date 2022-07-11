@@ -21,21 +21,52 @@ router.post("/", async function(req,res){
 
 
 router.get("/", async function(req,res){
-    const {race} = req.query;   
+    const {race,age} = req.query;   
 
     const condiction = {};
     const where = {};
 
 
-    if(race) where.race = race;
+    condiction.where = where;
 
-   condiction.where = where;
+    if(race) where.race = race;
+    if(age) where.age = age;
+
+    // {
+    //     race:"human",
+    //     age:27
+    // }
 
     const character = await Character.findAll(condiction);
     res.json(character);
     
 });
 
+
+router.get("/young", async function(req,res){
+ 
+    const character = await Character.findAll({
+        where:{
+            age:{[Op.lt]:25}
+        }
+    })
+
+    res.json(character)
+
+});
+
+
+router.get("/roles/:code", async function(req,res){
+    const {code} = req.params;
+
+    const character = await Character.findByPk(code,{
+        include: Role
+    });
+
+    res.status(404).json(character)
+    
+
+});
 
 
 router.get("/:code", async function(req,res){
@@ -54,6 +85,49 @@ router.get("/:code", async function(req,res){
     // })
 
 });
+
+
+
+router.put("/addAbilities", async function(req,res){
+
+    const {codeCharacter, abilities} = req.body;
+
+    const character = await Character.findByPk(codeCharacter)
+    const promises = abilities.map( a => character.createAbility(a))
+
+    await Promise.all(promises)
+
+    res.send('OK')
+
+});
+
+
+
+
+router.put("/:attribute", async function(req,res){
+
+    const {attribute} = req.params;
+    const {value} = req.query;
+ 
+
+    await Character.update({  //Actualizame 
+        [attribute]:value      // Los atributos que recibo por params, por esta value que recibo por query
+    },{                      // [atribute] va con corchete pq no se que atributo es
+        where:{
+            [attribute]:null  //Donde esos atributos tengan valor "null"
+        }
+    })
+
+    res.send('Personajes actualizados')
+
+});
+
+
+
+
+
+
+
 
 
 module.exports = router;
