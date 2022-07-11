@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = sequelize => {
-  sequelize.define('Ability', {
+  sequelize.define("Ability", {
     name: {
       type:  DataTypes.STRING,
       unique: 'compositeUnique',
@@ -17,3 +17,6 @@ module.exports = sequelize => {
     }
   })
 }
+
+
+

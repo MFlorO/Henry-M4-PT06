@@ -1,7 +1,7 @@
 const { DataTypes, Sequelize } = require('sequelize');
 
 module.exports = sequelize => {
-  sequelize.define('Character', {
+  sequelize.define('Character', { 
     code: {
       type: DataTypes.STRING(5),
       primaryKey: true
@@ -27,11 +27,12 @@ module.exports = sequelize => {
       allowNull: false
     },
     date_added: {
-      type:  DataTypes.DATEONLY,   //QUE DIFERENCIA HAY ENTRE DATA Y DATAONLY???
+      type:  DataTypes.DATEONLY, 
       defaultValue: DataTypes.NOW
 
     }
   },{
-    timestamps: false
+    timestamps: false,
+    
   })
 } 

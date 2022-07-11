@@ -61,7 +61,7 @@ server.get('/players/filters/and', async (req, res) => {
   const players = await Player.findAll({
     where: req.body
   });
-  res.json(players.length ? players : 'No players found');
+  res.json(players.length ? players : 'No players found');  
 });
 
 server.get('/players/filters/or', async (req, res) => {
@@ -189,7 +189,7 @@ server.get('/teams', async (req, res) => {
 
 server.post('/teams', async (req, res) => {
   const { name, one, two } = req.body;
-  try {
+  try {player
     const team = await Team.create({
       name,
       one,
@@ -256,7 +256,8 @@ server.get('/mixins', async (req, res) => {
 
   console.log('----- PLAYER -----');
   const players = await team.getPlayers();
-  console.log('PLAYERS: ', players.map(p => p.toJSON()));
+  console.log('PLAYERS: ', players.map(p => p.toJSON())); 
+  //El map es porque no puedo aplicar ".toJSON" al conjunto, asique lo mapeo
 
   res.sendStatus(200);
 });
@@ -287,6 +288,11 @@ server.get('/', (req, res) => {
 server.use('/', (req, res) => {
   res.status(404).send('Resource not found');
 });
+
+
+
+
+
 
 server.listen(3000, () => {
   console.log('Server running on port 3000');

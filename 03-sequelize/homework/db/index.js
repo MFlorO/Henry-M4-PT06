@@ -11,6 +11,9 @@ modelCharacter(db);
 modelAbility(db);
 modelRole(db);
 
+
+//db.models = {Character,Ability,Role}
+
 module.exports = {
   ...db.models,
   db,

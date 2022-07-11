@@ -37,7 +37,8 @@ router.get("/", async function(req,res){
 });
 
 
-router.post("/:code", async function(req,res){
+
+router.get("/:code", async function(req,res){
     const {code} = req.params;
 
     const character = await Character.findByPk(code);
